@@ -66,7 +66,7 @@ public class calenderactivity extends ActionBarActivity {
                 GregorianCalendar calDate = new GregorianCalendar(year, month, day);
                 intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,calDate.getTimeInMillis());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,calDate.getTimeInMillis());
+
                 startActivity(intent);
             }
         });
