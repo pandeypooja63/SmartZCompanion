@@ -23,6 +23,7 @@ public class calenderactivity extends ActionBarActivity {
         initializeCalendar();
 
     }
+
     public void initializeCalendar() {
         calendar = (CalendarView) findViewById(R.id.calendarView);
 
@@ -46,7 +47,6 @@ public class calenderactivity extends ActionBarActivity {
         calendar.setSelectedDateVerticalBar(R.color.darkgreen);
 
 
-
         //sets the listener to be notified upon selected date change.
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
@@ -61,12 +61,12 @@ public class calenderactivity extends ActionBarActivity {
                 intent.putExtra("beginTime", cal.getTimeInMillis());
                 intent.putExtra("allDay", true);
                 intent.putExtra("rrule", "FREQ=YEARLY");
-                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                intent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
                 intent.putExtra("title", "A Test Event from android app");
                 GregorianCalendar calDate = new GregorianCalendar(year, month, day);
                 intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,calDate.getTimeInMillis());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,calDate.getTimeInMillis());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calDate.getTimeInMillis());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calDate.getTimeInMillis());
                 startActivity(intent);
             }
         });
