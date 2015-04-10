@@ -1,9 +1,9 @@
 package com.example.nispand.smartzcompanion;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
@@ -13,18 +13,16 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class calenderactivity extends ActionBarActivity {
-
+public class CalEvent extends ActionBarActivity {
     CalendarView calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calenderactivity);
+        setContentView(R.layout.activity_cal_event);
         initializeCalendar();
-
     }
     public void initializeCalendar() {
-        calendar = (CalendarView) findViewById(R.id.calendarView);
+        calendar = (CalendarView) findViewById(R.id.calendarView2);
 
         // sets whether to show the week number.
         calendar.setShowWeekNumber(false);
@@ -58,28 +56,24 @@ public class calenderactivity extends ActionBarActivity {
                 Calendar cal = Calendar.getInstance();
                 Intent intent = new Intent(Intent.ACTION_INSERT);
                 intent.setType("vnd.android.cursor.item/event");
-                intent.putExtra("beginTime", cal.getTimeInMillis());
+                intent.putExtra("BeginTime", cal.getTimeInMillis());
                 intent.putExtra("allDay", true);
-                intent.putExtra("rrule", "FREQ=YEARLY");
-                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-                intent.putExtra("title", "A Test Event from android app");
+                intent.putExtra("Rule", "FREQ=YEARLY");
+                intent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
+                intent.putExtra("Title", "Put Title ");
                 GregorianCalendar calDate = new GregorianCalendar(year, month, day);
                 intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,calDate.getTimeInMillis());
-
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calDate.getTimeInMillis());
                 startActivity(intent);
             }
         });
 
     }
 
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_calenderactivity, menu);
+        getMenuInflater().inflate(R.menu.menu_cal_event, menu);
         return true;
     }
 

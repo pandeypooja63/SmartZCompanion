@@ -16,18 +16,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".calenderactivity"
-            android:label="@string/title_activity_calenderactivity" />
 
         <intent-filter>
-            <action android:name="android.addcalevent" />
+            <action android:name="android.Calenderactivity" />
 
             <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
+
         <activity
             android:name=".phonecallbased"
             android:label="@string/title_activity_phonecallbased" >
+        </activity>
+        <activity
+            android:name=".CalEvent"
+            android:label="@string/title_activity_cal_event" >
+            <intent-filter>
+                <action android:name="android.CalEvent" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 
