@@ -19,6 +19,12 @@
         <activity
             android:name=".calenderactivity"
             android:label="@string/title_activity_calenderactivity" />
+
+        <intent-filter>
+            <action android:name="android.addcalevent" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
         <activity
             android:name=".phonecallbased"
             android:label="@string/title_activity_phonecallbased" >

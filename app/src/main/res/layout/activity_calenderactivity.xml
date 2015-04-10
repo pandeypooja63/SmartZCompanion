@@ -8,9 +8,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.nispand.smartzcompanion.calenderactivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
 
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="SMART COMPANION"
+                android:textAlignment="center"
+                android:textColor="#ff3e6cff"
+                android:textIsSelectable="false"
+                android:textSize="15dp" />
+        </FrameLayout>
+    </FrameLayout>
 </RelativeLayout>
