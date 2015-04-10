@@ -14,7 +14,6 @@ import java.util.GregorianCalendar;
 
 
 public class calenderactivity extends ActionBarActivity {
-    int day,year,month;
     CalendarView calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
