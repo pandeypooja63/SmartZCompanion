@@ -8,5 +8,6 @@
     <string name="title_activity_phonecallbased">phonecallbased</string>
     <string name="title_activity_cal_event">CalEvent</string>
     <string name="nispand">Large Text</string>
+    <string name="title_activity_cal_search">CalSearch</string>
 
 </resources>
