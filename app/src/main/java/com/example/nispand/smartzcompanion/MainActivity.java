@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,21 +17,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button1 = (Button) findViewById(R.id.button);
-        button1.setOnClickListener(this);
-    }
-
-    private void buttonclick() {
-        startActivity(new Intent("android.calendar"));
-    }
-
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button:
-                buttonclick();
-                break;
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent("android.CalEvent");
+                startActivity(i);
+            }
+        });
         }
 
-    }
 
 
     @Override

@@ -4,7 +4,9 @@
     <string name="app_name">SmartZCompanion</string>
     <string name="hello_world" color="BLUE"><h1>SMARTCOMPANION</h1></string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_calenderactivity">calenderactivity</string>
+    <string name="title_activity_Calenderactivity">Calenderactivity</string>
     <string name="title_activity_phonecallbased">phonecallbased</string>
+    <string name="title_activity_cal_event">CalEvent</string>
+    <string name="nispand">Large Text</string>
 
 </resources>
