@@ -1,7 +1,9 @@
 package com.example.nispand.smartzcompanion;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +17,6 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.lang.String;
 
 public class CalEvent extends ActionBarActivity {
     CalendarView calendar;
@@ -77,8 +78,23 @@ public class CalEvent extends ActionBarActivity {
 
         //sets the color for the vertical bar shown at the beginning and at the end of the selected date.
         calendar.setSelectedDateVerticalBar(R.color.darkgreen);
+        Uri calUri = CalendarContract.Calendars.CONTENT_URI;
+        ContentValues cv = new ContentValues();
+        cv.put(CalendarContract.Calendars.ACCOUNT_NAME, "Chetan Kabra");
+        cv.put(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL);
+        cv.put(CalendarContract.Calendars.NAME, "CK");
+        cv.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, "CK Calendar");
+        cv.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER);
+        cv.put(CalendarContract.Calendars.OWNER_ACCOUNT, true);
+        cv.put(CalendarContract.Calendars.VISIBLE, 1);
+        cv.put(CalendarContract.Calendars.SYNC_EVENTS, 1);
 
-
+        calUri = calUri.buildUpon()
+                .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, "Chetan Kabra")
+                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL)
+                .build();
+        Uri result = this.getContentResolver().insert(calUri, cv);
     }
     public void add_event()
     {
