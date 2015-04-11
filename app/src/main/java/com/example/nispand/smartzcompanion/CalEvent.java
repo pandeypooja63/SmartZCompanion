@@ -169,6 +169,11 @@ public class CalEvent extends ActionBarActivity {
                     result[cursor.getPosition()] = name + "(" + id + ")";
                     if (d1.compareTo(d2) == 0) {
                         Toast.makeText(getApplicationContext(), name + "(" + id + ")" + "(" + d1 + ")", Toast.LENGTH_SHORT).show();
+                    Intent calsearch = new Intent("android.CalSearch");
+                    calsearch.putExtra("Name ",name);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"No Event Register for this Date",Toast.LENGTH_SHORT).show();
                     }
                 }
 
