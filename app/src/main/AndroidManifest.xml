@@ -26,6 +26,11 @@
         <activity
             android:name=".phonecallbased"
             android:label="@string/title_activity_phonecallbased" >
+            <intent-filter>
+                <action android:name="android.phonecallbased" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".CalEvent"

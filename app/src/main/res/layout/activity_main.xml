@@ -2,22 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff219bff"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:background="#ff219bff"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/hello_world"
-        android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:text="@string/hello_world"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ff19ff14"
         android:textColorHighlight="@color/background_floating_material_dark"
         android:textSize="30dp"
@@ -25,35 +25,35 @@
         android:transitionName="@string/abc_action_bar_home_subtitle_description_format" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/R"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:id="@+id/"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <Button
+            android:id="@+id/button"
             android:layout_width="86dp"
             android:layout_height="100dp"
-            android:text="CalendarBased"
-            android:id="@+id/button"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:text="CalendarBased" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="98dp"
-            android:text="Wi-Fi Based"
             android:id="@+id/button2"
-            android:layout_gravity="center_vertical" />
+            android:layout_width="86dp"
+            android:layout_height="98dp"
+            android:layout_gravity="center_vertical"
+            android:text="Wi-Fi Based" />
 
         <Button
+            android:id="@+id/button3"
             android:layout_width="72dp"
             android:layout_height="96dp"
-            android:text="PhoneCallBased"
-            android:id="@+id/button3"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.41" />
+            android:layout_weight="0.41"
+            android:text="PhoneCallBased" />
     </LinearLayout>
 
 </RelativeLayout>
