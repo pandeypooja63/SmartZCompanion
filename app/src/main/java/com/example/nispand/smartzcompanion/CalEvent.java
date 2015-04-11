@@ -56,6 +56,7 @@ public class CalEvent extends ActionBarActivity {
             public void onClick(View v) {
                 calendar.setVisibility(View.VISIBLE);
                 initializeCalendar();
+                delete();
             }
         });
     }
@@ -128,15 +129,24 @@ public class CalEvent extends ActionBarActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+                Intent k = new Intent("android.CalEvent");
+                Bundle b = new Bundle();
+
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
                 long date1 = calendar.getDate();
                 Date d2 = new Date(date1);
                 System.out.print(""+cday);
+                b.putInt("day", day);
+                b.putInt("month", month);
+                b.putInt("year", year);
+                b.putLong("date1", date1);
+                k.putExtras(b);
+
                 String[] projection = { CalendarContract.Reminders._ID,
                         CalendarContract.Reminders.TITLE,
                         CalendarContract.Reminders.DTSTART,
                         CalendarContract.Events.EXDATE,
-                        };
+                };
                 // Get a Cursor over the Events Provider.
                 Cursor cursor = getContentResolver().query(
                         CalendarContract.Events.CONTENT_URI, projection, null, null,
