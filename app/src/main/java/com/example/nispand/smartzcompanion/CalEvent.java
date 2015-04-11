@@ -78,6 +78,11 @@ public class CalEvent extends ActionBarActivity {
 
         //sets the color for the vertical bar shown at the beginning and at the end of the selected date.
         calendar.setSelectedDateVerticalBar(R.color.darkgreen);
+
+
+    }
+
+    public void on_create() {
         Uri calUri = CalendarContract.Calendars.CONTENT_URI;
         ContentValues cv = new ContentValues();
         cv.put(CalendarContract.Calendars.ACCOUNT_NAME, "Chetan Kabra");
@@ -151,9 +156,9 @@ public class CalEvent extends ActionBarActivity {
                     // Extract the unique ID.
                     String id = cursor.getString(idIdx);
                     result[cursor.getPosition()] = name + "(" + id + ")";
-
+                    if (d1.compareTo(d2) == 0) {
                         Toast.makeText(getApplicationContext(), name + "(" + id + ")" + "(" + d1 + ")", Toast.LENGTH_SHORT).show();
-
+                    }
                 }
 
             }

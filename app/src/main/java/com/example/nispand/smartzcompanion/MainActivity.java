@@ -8,20 +8,40 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import static android.view.View.OnClickListener;
+
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button button1;
+        Button button1, wifibutton, phonecallbased;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button1 = (Button) findViewById(R.id.button);
-        button1.setOnClickListener(new View.OnClickListener() {
+        wifibutton = (Button) findViewById(R.id.button2);
+        phonecallbased = (Button) findViewById(R.id.button3);
+        button1.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent("android.CalEvent");
                 startActivity(i);
+            }
+        });
+        wifibutton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent j = new Intent("");
+                startActivity(j);
+
+            }
+        });
+        phonecallbased.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent k = new Intent("android.phonecallbased");
+                startActivity(k);
             }
         });
         }
