@@ -109,36 +109,35 @@ public class CalEvent extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
                 long date1 = calendar.getDate();
                 Date d2 = new Date(date1);
-                String cday = (String)android.text.format.DateFormat.format("date",d2);
-                String cmonth = (String) android.text.format.DateFormat.format("MMM", d2);
-                System.out.print(""+cday+""+cmonth);
-                String[] projection = { CalendarContract.Events._ID,
-                        CalendarContract.Events.TITLE,CalendarContract.Events.DTSTART };
+                System.out.print(""+cday);
+                String[] projection = { CalendarContract.Reminders._ID,
+                        CalendarContract.Reminders.TITLE,
+                        CalendarContract.Reminders.DTSTART,
+                        CalendarContract.Events.EXDATE,
+                        };
                 // Get a Cursor over the Events Provider.
                 Cursor cursor = getContentResolver().query(
                         CalendarContract.Events.CONTENT_URI, projection, null, null,
                         null);
                 // Get the index of the columns.
                 int nameIdx = cursor
-                        .getColumnIndexOrThrow(CalendarContract.Events.TITLE);
-                int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Events._ID);
-                int D1 = cursor.getColumnIndexOrThrow(CalendarContract.Events.DTSTART);
+                        .getColumnIndexOrThrow(CalendarContract.Reminders.TITLE);
+                int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders._ID);
+                int D1 = cursor.getColumnIndexOrThrow(CalendarContract.Reminders.DTSTART);
 
                 // Initialize the result set.
                 String[] result = new String[cursor.getCount()];
                 // Iterate over the result Cursor.
                 while (cursor.moveToNext()) {
                     Date d1 = new Date (cursor.getLong(D1));
-                    String ccday = (String)android.text.format.DateFormat.format("date",d1);
-                    String ccmonth = (String) android.text.format.DateFormat.format("MMM", d1);
                     // Extract the name.
                     String name = cursor.getString(nameIdx);
                     // Extract the unique ID.
                     String id = cursor.getString(idIdx);
                     result[cursor.getPosition()] = name + "(" + id + ")";
-                    if (cday.compareTo(ccday)==0 & cmonth.compareTo(ccmonth)==0) {
+
                         Toast.makeText(getApplicationContext(), name + "(" + id + ")" + "(" + d1 + ")", Toast.LENGTH_SHORT).show();
-                    }
+
                 }
 
             }
