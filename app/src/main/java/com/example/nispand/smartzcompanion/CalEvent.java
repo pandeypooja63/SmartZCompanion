@@ -1,5 +1,6 @@
 package com.example.nispand.smartzcompanion;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -163,6 +164,15 @@ public class CalEvent extends ActionBarActivity {
 
             }
         });
+    }
+    public void delete(){
+        Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+        long date1 = calendar.getDate();
+        Date d2 = new Date(date1);
+       String[] selArgs = new String[]{String.valueOf(d2)};
+        // Get a Cursor over the Events Provider.
+        ContentResolver cursor  = getContentResolver();
+        cursor.delete(CalendarContract.CONTENT_URI, CalendarContract.Reminders.DTSTART+"=?",selArgs);
     }
             public boolean onCreateOptionsMenu(Menu menu) {
                 // Inflate the menu; this adds items to the action bar if it is present.
