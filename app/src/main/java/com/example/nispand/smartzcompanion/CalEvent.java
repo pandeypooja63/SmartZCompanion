@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -21,7 +24,10 @@ import java.util.GregorianCalendar;
 
 public class CalEvent extends ActionBarActivity {
     CalendarView calendar;
+    FrameLayout frame;
     CalendarContract Calendars;
+    TextView tx;
+    LinearLayout ll;
     Button Add, Search ,Delete;
     long cday;
     long cmonth;
@@ -35,6 +41,11 @@ public class CalEvent extends ActionBarActivity {
         Search = (Button) findViewById(R.id.Search);
         Delete = (Button)findViewById(R.id.Delete);
         calendar = (CalendarView) findViewById(R.id.calendarView2);
+        //frame = (FrameLayout) (findViewById(R.id.frame1));
+        ll = (LinearLayout) findViewById(R.id.mylinear);
+        ll.setVisibility(View.INVISIBLE);
+
+        //  tx = (TextView) findViewById(R.id.textView4);
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,13 +137,19 @@ public class CalEvent extends ActionBarActivity {
         });
     }
     public void search_event(){
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
 
+
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                calendar.setVisibility(View.INVISIBLE);
+                ll.setVisibility(View.VISIBLE);
                 long date1 = calendar.getDate();
                 Date d2 = new Date(date1);
+                Intent calsearch = new Intent("android.CalSearch");
+                Bundle data = new Bundle();
                 System.out.print("First date" + d2);
                 String cMonth = (String) android.text.format.DateFormat.format("MM", d2);
                 String cyear = (String) android.text.format.DateFormat.format("yyyy", d2);
@@ -145,44 +162,50 @@ public class CalEvent extends ActionBarActivity {
                 };
                 // Get a Cursor over the Events Provider.
                 Cursor cursor = getContentResolver().query(
-                        CalendarContract.Events.CONTENT_URI, projection, CalendarContract.Reminders.DTSTART + "=?", new String[]{Long.toString(date1)},
+                        CalendarContract.Events.CONTENT_URI, projection, null, null,
                         null);
                 // Get the index of the columns.
-                int nameIdx = cursor
-                        .getColumnIndexOrThrow(CalendarContract.Reminders.TITLE);
+                int nameIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders.TITLE);
                 int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders._ID);
                 int D1 = cursor.getColumnIndexOrThrow(CalendarContract.Reminders.DTSTART);
+                int i = 0;
 
                 // Initialize the result set.
                 String[] result = new String[cursor.getCount()];
+                String[] eventname = new String[cursor.getCount()];
+                String[] eventID = new String[cursor.getCount()];
+                String id1;
+                String nameid;
                 // Iterate over the result Cursor.
                 while (cursor.moveToNext()) {
                     Date d1 = new Date(cursor.getLong(D1));
                     System.out.print("First date" + d2);
-                    String ccMonth = (String) android.text.format.DateFormat.format("MM", d2);
-                    String ccyear = (String) android.text.format.DateFormat.format("yyyy", d2);
-                    String ccday = (String) android.text.format.DateFormat.format("dd", d2);
+                    String ccMonth = (String) android.text.format.DateFormat.format("MM", d1);
+                    String ccyear = (String) android.text.format.DateFormat.format("yyyy", d1);
+                    String ccday = (String) android.text.format.DateFormat.format("dd", d1);
                     // Extract the name.
                     String name = cursor.getString(nameIdx);
                     // Extract the unique ID.
                     String id = cursor.getString(idIdx);
                     result[cursor.getPosition()] = name + "(" + id + ")";
-                    if (ccMonth.compareTo(cMonth) == 0 & ccday.compareTo(cday)==0) {
-                    Toast.makeText(getApplicationContext(), "No Event Register for this Date", Toast.LENGTH_SHORT).show();
-                    Intent calsearch = new Intent("android.CalSearch");
-                    calsearch.putExtra("Name ", nameIdx);
-                    calsearch.putExtra("ID", idIdx);
-                    calsearch.putExtra("D1", D1);
-                    calsearch.putExtra("cursor", (android.os.Parcelable) cursor);
-                    startActivity(calsearch);
-                }
-                 else{
-                        Toast.makeText(getApplicationContext(),"No Event Register for this Date",Toast.LENGTH_SHORT).show();
-                        cursor.close();
-                        break;
+                    if (ccMonth.compareTo(cMonth) == 0 & ccday.compareTo(cday) == 0) {
+                        LinearLayout lm = new LinearLayout(this);
+                        lm.setOrientation(LinearLayout.HORIZONTAL);
+
+                        // Create TextView
+                        TextView product = new TextView(this);
+                        product.setText(name + "    " + id);
+                        lm.addView(product);
+                        ll.addView(lm);
+                        //tx.setText(name + "(" + id + ")");
                     }
-                  cursor.close();
                 }
+                // Intent calsearch = new Intent("android.CalSearch");
+                //  data.putStringArray("eventId",eventID);
+                //  data.putStringArray("eventName",eventname);
+                //  calsearch.putExtras(data);
+                //   startActivity(calsearch);
+
             }
         });
     }
