@@ -32,8 +32,9 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                Intent j = new Intent("");
-                startActivity(j);
+                Intent intent = new Intent(MainActivity.this,Second.class);
+                //intent.putExtra("Etext", finalSWifiState);
+                startActivity(intent);
 
             }
         });

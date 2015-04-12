@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nispand.smartzcompanion" >
 
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -18,40 +18,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+</activity>
+        <activity
+            android:name=".Second"
+            android:label="@string/title_activity_second" >
         </activity>
 
-        <intent-filter>
-            <action android:name="android.Calenderactivity" />
-
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+        <!-- Receive Wi-Fi connection state changes -->
+        <receiver
+            android:name=".WifiReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".phonecallbased"
             android:label="@string/title_activity_phonecallbased" >
-            <intent-filter>
-                <action android:name="android.phonecallbased" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".CalEvent"
-            android:label="@string/title_activity_cal_event" >
-            <intent-filter>
-                <action android:name="android.CalEvent" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".CalSearch"
-            android:label="@string/title_activity_cal_search">
-            <intent-filter>
-                <action android:name="android.CalSearch" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
     </application>
 
