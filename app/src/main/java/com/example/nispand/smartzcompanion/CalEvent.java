@@ -129,27 +129,23 @@ public class CalEvent extends ActionBarActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-                Intent k = new Intent("android.CalEvent");
-                Bundle b = new Bundle();
 
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
                 long date1 = calendar.getDate();
                 Date d2 = new Date(date1);
-                System.out.print(""+cday);
-                b.putInt("day", day);
-                b.putInt("month", month);
-                b.putInt("year", year);
-                b.putLong("date1", date1);
-                k.putExtras(b);
+                System.out.print("First date" + d2);
+                String cMonth = (String) android.text.format.DateFormat.format("MM", d2);
+                String cyear = (String) android.text.format.DateFormat.format("yyyy", d2);
+                String cday = (String) android.text.format.DateFormat.format("dd", d2);
 
-                String[] projection = { CalendarContract.Reminders._ID,
+                String[] projection = {CalendarContract.Reminders._ID,
                         CalendarContract.Reminders.TITLE,
                         CalendarContract.Reminders.DTSTART,
                         CalendarContract.Events.EXDATE,
                 };
                 // Get a Cursor over the Events Provider.
                 Cursor cursor = getContentResolver().query(
-                        CalendarContract.Events.CONTENT_URI, projection, null, null,
+                        CalendarContract.Events.CONTENT_URI, projection, CalendarContract.Reminders.DTSTART + "=?", new String[]{Long.toString(date1)},
                         null);
                 // Get the index of the columns.
                 int nameIdx = cursor
@@ -161,22 +157,32 @@ public class CalEvent extends ActionBarActivity {
                 String[] result = new String[cursor.getCount()];
                 // Iterate over the result Cursor.
                 while (cursor.moveToNext()) {
-                    Date d1 = new Date (cursor.getLong(D1));
+                    Date d1 = new Date(cursor.getLong(D1));
+                    System.out.print("First date" + d2);
+                    String ccMonth = (String) android.text.format.DateFormat.format("MM", d2);
+                    String ccyear = (String) android.text.format.DateFormat.format("yyyy", d2);
+                    String ccday = (String) android.text.format.DateFormat.format("dd", d2);
                     // Extract the name.
                     String name = cursor.getString(nameIdx);
                     // Extract the unique ID.
                     String id = cursor.getString(idIdx);
                     result[cursor.getPosition()] = name + "(" + id + ")";
-                    if (d1.compareTo(d2) == 0) {
-                        Toast.makeText(getApplicationContext(), name + "(" + id + ")" + "(" + d1 + ")", Toast.LENGTH_SHORT).show();
+                    if (ccMonth.compareTo(cMonth) == 0 & ccday.compareTo(cday)==0) {
+                    Toast.makeText(getApplicationContext(), "No Event Register for this Date", Toast.LENGTH_SHORT).show();
                     Intent calsearch = new Intent("android.CalSearch");
-                    calsearch.putExtra("Name ",name);
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"No Event Register for this Date",Toast.LENGTH_SHORT).show();
-                    }
+                    calsearch.putExtra("Name ", nameIdx);
+                    calsearch.putExtra("ID", idIdx);
+                    calsearch.putExtra("D1", D1);
+                    calsearch.putExtra("cursor", (android.os.Parcelable) cursor);
+                    startActivity(calsearch);
                 }
-
+                 else{
+                        Toast.makeText(getApplicationContext(),"No Event Register for this Date",Toast.LENGTH_SHORT).show();
+                        cursor.close();
+                        break;
+                    }
+                  cursor.close();
+                }
             }
         });
     }
