@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Second.class);
+                Intent intent = new Intent(MainActivity.this,WifiMenu.class);
                 //intent.putExtra("Etext", finalSWifiState);
                 startActivity(intent);
 
