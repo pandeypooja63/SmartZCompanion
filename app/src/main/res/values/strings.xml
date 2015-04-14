@@ -12,4 +12,6 @@
     <string name="Enter">Enter the Title Name for your Reminder</string>
     <string name="SelectDate2">Select End Date </string>
     <string name="Description">Enter the Descriptions of Reminder</string>
+    <string name="title_activity_set_reminder">SetReminder</string>
+    <string name="title_activity_notification_view">NotificationView</string>
 </resources>

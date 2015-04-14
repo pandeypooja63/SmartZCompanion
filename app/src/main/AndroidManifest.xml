@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Second"
+            android:name=".WifiMenu"
             android:label="@string/title_activity_second" >
         </activity>
 
@@ -57,6 +57,14 @@
         <activity
             android:name=".phonecallbased"
             android:label="@string/title_activity_phonecallbased" >
+        </activity>
+        <activity
+            android:name=".SetReminder"
+            android:label="@string/title_activity_set_reminder" >
+        </activity>
+        <activity
+            android:name=".NotificationView"
+            android:label="@string/title_activity_notification_view" >
         </activity>
     </application>
 
