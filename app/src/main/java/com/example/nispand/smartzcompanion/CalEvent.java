@@ -1,7 +1,6 @@
 package com.example.nispand.smartzcompanion;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,16 +11,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class CalEvent extends ActionBarActivity {
     CalendarView calendar;
@@ -29,11 +32,13 @@ public class CalEvent extends ActionBarActivity {
     CalendarContract Calendars;
     TextView tx;
     LinearLayout ll;
+    ListView lv;
     Button Add, Search ,Delete;
     long cday;
     long cmonth;
     long cyear;
     long xyz;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +47,12 @@ public class CalEvent extends ActionBarActivity {
         Search = (Button) findViewById(R.id.Search);
         Delete = (Button)findViewById(R.id.Delete);
         calendar = (CalendarView) findViewById(R.id.calendarView2);
+        //  lv = (ListView) findViewById(R.id.listView);
+        List<String> li;
+        li = new ArrayList<String>();
         //frame = (FrameLayout) (findViewById(R.id.frame1));
-        ll = (LinearLayout) findViewById(R.id.mylinear);
-        ll.setVisibility(View.INVISIBLE);
-
+        //    ll = (LinearLayout) findViewById(R.id.mylinear);
+        //     ll.setVisibility(View.INVISIBLE);
         //  tx = (TextView) findViewById(R.id.textView4);
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +124,7 @@ public class CalEvent extends ActionBarActivity {
     }
     public void add_event()
     {
-        Intent calendar_add = new Intent("android.Caladd");
-        startActivity(calendar_add);
+
         //sets the listener to be notified upon selected date change
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
@@ -144,24 +150,20 @@ public class CalEvent extends ActionBarActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-
-
                 Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+
                 calendar.setVisibility(View.INVISIBLE);
-                ll.setVisibility(View.VISIBLE);
+                //    ll.setVisibility(View.VISIBLE);
                 long date1 = calendar.getDate();
                 Date d2 = new Date(date1);
-                Intent calsearch = new Intent("android.CalSearch");
-                Bundle data = new Bundle();
-                System.out.print("First date" + d2);
                 String cMonth = (String) android.text.format.DateFormat.format("MM", d2);
                 String cyear = (String) android.text.format.DateFormat.format("yyyy", d2);
                 String cday = (String) android.text.format.DateFormat.format("dd", d2);
 
-                String[] projection = {CalendarContract.Reminders._ID,
-                        CalendarContract.Reminders.TITLE,
-                        CalendarContract.Reminders.DTSTART,
-                        CalendarContract.Reminders.EXDATE,
+                String[] projection = {CalendarContract.Events._ID,
+                        CalendarContract.Events.TITLE,
+                        CalendarContract.Events.DTSTART,
+                        CalendarContract.Events.EXDATE,
                 };
                 // Get a Cursor over the Events Provider.
                 Cursor cursor= null;
@@ -169,9 +171,9 @@ public class CalEvent extends ActionBarActivity {
                 cursor =cr.query(
                         CalendarContract.Events.CONTENT_URI, projection, null, null,null);
                 // Get the index of the columns.
-                int nameIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders.TITLE);
-                int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders._ID);
-                int D1 = cursor.getColumnIndexOrThrow(CalendarContract.Reminders.DTSTART);
+                int nameIdx = cursor.getColumnIndexOrThrow(CalendarContract.Events.TITLE);
+                int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Events._ID);
+                int D1 = cursor.getColumnIndexOrThrow(CalendarContract.Events.DTSTART);
                 int i = 0;
 
                 // Initialize the result set.
@@ -180,9 +182,16 @@ public class CalEvent extends ActionBarActivity {
                 String[] eventID = new String[cursor.getCount()];
                 String id1;
                 String nameid;
+                List<String> li = new ArrayList<String>();
+                ;
+                ListView list;
+                ArrayAdapter<String> adp = new ArrayAdapter<String>
+                        (getBaseContext(), R.layout.list, li);
                 // Iterate over the result Cursor.
                 while (cursor.moveToNext()) {
                     long eventid =0;
+                    list = (ListView) findViewById(R.id.myList);
+                    list.setVisibility(View.VISIBLE);
                     Date d1 = new Date(cursor.getLong(D1));
                     System.out.print("First date" + d2);
                     String ccMonth = (String) android.text.format.DateFormat.format("MM", d1);
@@ -195,17 +204,20 @@ public class CalEvent extends ActionBarActivity {
                     result[cursor.getPosition()] = name + "(" + id + ")";
                     if (ccMonth.compareTo(cMonth) == 0 & ccday.compareTo(cday) == 0) {
                         eventid = cursor.getLong(idIdx);
-                        Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventid);
+                        nameid = name + "(" + id + ")";
+                        li.add(nameid);
+                        adp.notifyDataSetChanged();
+
+                     /*   Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventid);
                         Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
                         startActivity(intent);
+                        */
+
 
                     }
+                    list.setAdapter(adp);
                 }
-                // Intent calsearch = new Intent("android.CalSearch");
-                //  data.putStringArray("eventId",eventID);
-                //  data.putStringArray("eventName",eventname);
-                //  calsearch.putExtras(data);
-                //   startActivity(calsearch);
+
 
             }
         });

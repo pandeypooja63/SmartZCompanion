@@ -46,13 +46,13 @@
         android:layout_alignRight="@+id/calendarView2"
         android:text="Delete" />
 
-    <LinearLayout
-        android:id="@+id/mylinear"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+    <ListView
+        android:id="@+id/myList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/Search"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>
