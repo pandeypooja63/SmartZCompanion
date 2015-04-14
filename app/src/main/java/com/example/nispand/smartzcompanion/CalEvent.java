@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -147,6 +148,8 @@ public class CalEvent extends ActionBarActivity {
     }
     public void search_event(){
 
+
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
@@ -216,10 +219,20 @@ public class CalEvent extends ActionBarActivity {
 
                     }
                     list.setAdapter(adp);
+                    final ListView finalList = list;
+                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String val=(String)(finalList.getItemAtPosition(position));
+                            //Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventid);
+                            //Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
+                            //startActivity(intent);
+                        }
+                    });
                 }
+             }
 
 
-            }
         });
     }
     public void delete() {
