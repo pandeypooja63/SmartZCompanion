@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +20,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-</activity>
+        </activity>
+        <activity
+            android:name=".CalEvent"
+            android:label="@string/title_activity_calevent" >
+            <intent-filter>
+                <action android:name="android.CalEvent" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Caladd"
+            android:label="@string/title_activity_caladd" >
+            <intent-filter>
+                <action android:name="android.Caladd" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Second"
             android:label="@string/title_activity_second" >

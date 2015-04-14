@@ -6,4 +6,10 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_second">Set or Delete Reminder</string>
     <string name="title_activity_phonecallbased">phonebasedcall</string>
+    <string name="title_activity_calevent">CalEvent</string>
+    <string name="title_activity_caladd">Caladd</string>
+    <string name="selectdate1">Select Start Date</string>
+    <string name="Enter">Enter the Title Name for your Reminder</string>
+    <string name="SelectDate2">Select End Date </string>
+    <string name="Description">Enter the Descriptions of Reminder</string>
 </resources>

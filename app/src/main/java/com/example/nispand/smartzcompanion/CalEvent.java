@@ -1,6 +1,7 @@
 package com.example.nispand.smartzcompanion;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -116,6 +117,8 @@ public class CalEvent extends ActionBarActivity {
     }
     public void add_event()
     {
+        Intent calendar_add = new Intent("android.Caladd");
+        startActivity(calendar_add);
         //sets the listener to be notified upon selected date change
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
@@ -158,12 +161,13 @@ public class CalEvent extends ActionBarActivity {
                 String[] projection = {CalendarContract.Reminders._ID,
                         CalendarContract.Reminders.TITLE,
                         CalendarContract.Reminders.DTSTART,
-                        CalendarContract.Events.EXDATE,
+                        CalendarContract.Reminders.EXDATE,
                 };
                 // Get a Cursor over the Events Provider.
-                Cursor cursor = getContentResolver().query(
-                        CalendarContract.Events.CONTENT_URI, projection, null, null,
-                        null);
+                Cursor cursor= null;
+                ContentResolver cr = getContentResolver();
+                cursor =cr.query(
+                        CalendarContract.Events.CONTENT_URI, projection, null, null,null);
                 // Get the index of the columns.
                 int nameIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders.TITLE);
                 int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Reminders._ID);
@@ -178,6 +182,7 @@ public class CalEvent extends ActionBarActivity {
                 String nameid;
                 // Iterate over the result Cursor.
                 while (cursor.moveToNext()) {
+                    long eventid =0;
                     Date d1 = new Date(cursor.getLong(D1));
                     System.out.print("First date" + d2);
                     String ccMonth = (String) android.text.format.DateFormat.format("MM", d1);
@@ -189,15 +194,11 @@ public class CalEvent extends ActionBarActivity {
                     String id = cursor.getString(idIdx);
                     result[cursor.getPosition()] = name + "(" + id + ")";
                     if (ccMonth.compareTo(cMonth) == 0 & ccday.compareTo(cday) == 0) {
-                        LinearLayout lm = new LinearLayout(this);
-                        lm.setOrientation(LinearLayout.HORIZONTAL);
+                        eventid = cursor.getLong(idIdx);
+                        Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventid);
+                        Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
+                        startActivity(intent);
 
-                        // Create TextView
-                        TextView product = new TextView(this);
-                        product.setText(name + "    " + id);
-                        lm.addView(product);
-                        ll.addView(lm);
-                        //tx.setText(name + "(" + id + ")");
                     }
                 }
                 // Intent calsearch = new Intent("android.CalSearch");
