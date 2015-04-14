@@ -222,6 +222,7 @@ public class CalEvent extends ActionBarActivity {
                     list.setAdapter(adp);
                     final ListView finalList = list;
                     list.setClickable(true);
+                    final ListView finalList1 = list;
                     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -229,8 +230,10 @@ public class CalEvent extends ActionBarActivity {
                             String[] selectedid = val.split(":");
                             selectedid[1].trim();
                             Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, Long.parseLong(selectedid[1]));
-                            Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
+                            Intent intent = new Intent(Intent.ACTION_VIEW).setData(uri);
                             startActivity(intent);
+
+                            finalList1.setVisibility(View.GONE);
                         }
                     });
                 }
