@@ -1,6 +1,7 @@
 package com.example.nispand.smartzcompanion;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -207,7 +208,7 @@ public class CalEvent extends ActionBarActivity {
                     result[cursor.getPosition()] = name + "(" + id + ")";
                     if (ccMonth.compareTo(cMonth) == 0 & ccday.compareTo(cday) == 0) {
                         eventid = cursor.getLong(idIdx);
-                        nameid = name + "(" + id + ")";
+                        nameid = name + ":" + id ;
                         li.add(nameid);
                         adp.notifyDataSetChanged();
 
@@ -220,13 +221,16 @@ public class CalEvent extends ActionBarActivity {
                     }
                     list.setAdapter(adp);
                     final ListView finalList = list;
+                    list.setClickable(true);
                     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            String val=(String)(finalList.getItemAtPosition(position));
-                            //Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventid);
-                            //Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
-                            //startActivity(intent);
+                            String val = (String) (finalList.getItemAtPosition(position));
+                            String[] selectedid = val.split(":");
+                            selectedid[1].trim();
+                            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, Long.parseLong(selectedid[1]));
+                            Intent intent = new Intent(Intent.ACTION_EDIT).setData(uri);
+                            startActivity(intent);
                         }
                     });
                 }
